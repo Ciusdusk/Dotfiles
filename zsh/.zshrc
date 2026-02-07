@@ -209,3 +209,12 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ==========================================
+# # Editor Configuration
+# # ==========================================
+export EDITOR='vim'
+export VISUAL='vim'
+
+# Git 别名 (可选，方便用 vim 处理 git commit)
+alias g='git'
