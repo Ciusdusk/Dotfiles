@@ -186,11 +186,19 @@ code() {
 # 添加 fd 的链接
 export PATH=$HOME/.local/bin:$PATH
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# ==========================================
+# FZF Configuration (Zsh Version)
+# ==========================================
 
+# 核心：加载 Zsh 专用脚本 (注意后缀是 .zsh)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# 推荐配置 (保持不变)
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+export FZF_DEFAULT_COMMAND='find . -type f -not -path "*/.*"'
+export FZF_CTRL_T_OPTS="--preview 'cat {}' --preview-window 'right:60%'"
 # ==========================================
 # Load Local Secrets/Configs (Not in Git)
 # ==========================================
