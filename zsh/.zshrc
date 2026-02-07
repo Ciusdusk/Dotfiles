@@ -199,9 +199,13 @@ export PATH=$HOME/.local/bin:$PATH
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
 export FZF_DEFAULT_COMMAND='find . -type f -not -path "*/.*"'
 export FZF_CTRL_T_OPTS="--preview 'cat {}' --preview-window 'right:60%'"
+
 # ==========================================
 # Load Local Secrets/Configs (Not in Git)
 # ==========================================
 if [[ -f ~/.zshrc.local ]]; then
     source ~/.zshrc.local
 fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
