@@ -134,38 +134,49 @@ eval "$(direnv hook bash)"
 export DIRENV_LOG_FORMAT=""
 
 # ====================================================
-# WSL2 Mirrored Network Proxy Helper
+# WSL2 Mirrored Network Proxy Helper (Fixed)
 # ====================================================
 
+# 1. 【全局救命配置】No Proxy 白名单
+# 无论是否开启代理，这些地址永远直连，绝对不要走代理！
+# 这解决了 llm、ollama、以及 pip 在本地连接时的各种 502/Connection Refused 问题
+export no_proxy="localhost,127.0.0.1,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.local,googleapis.com.cn"
+export NO_PROXY="$no_proxy"  # 同步设置大写变量，兼容性更好
+
 function proxy_on() {
-    # 1. 设置代理地址 (Clash 端口)
+    # 2. 设置代理地址 (你的端口是 7897)
     local PROXY_PORT=7897
     local PROXY_URL="http://127.0.0.1:${PROXY_PORT}"
 
-    # 2. 设置环境变量
+    # 3. 设置环境变量
     export http_proxy="$PROXY_URL"
     export https_proxy="$PROXY_URL"
     export all_proxy="$PROXY_URL"
-
-    # 3. 【核心救命配置】No Proxy 白名单
-    # 告诉系统：访问 Google 走代理，但访问 本地/内网 绝对不要走代理
-    export no_proxy="localhost,127.0.0.1,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.local,googleapis.com.cn"
+    
+    # 同步大写变量 (某些 Linux 工具只认大写)
+    export HTTP_PROXY="$PROXY_URL"
+    export HTTPS_PROXY="$PROXY_URL"
+    export ALL_PROXY="$PROXY_URL"
 
     # 4. Git 配置
     git config --global http.proxy "$PROXY_URL"
     git config --global https.proxy "$PROXY_URL"
 
-    echo -e "\033[32m[√] Proxy ON (With Local Protection)\033[0m"
-    echo "Proxy: $PROXY_URL"
-    echo "No Proxy: $no_proxy"
+    echo -e "\033[32m[√] Proxy ON\033[0m (Port: $PROXY_PORT | Local Protection Active)"
 }
 
 function proxy_off() {
-    unset http_proxy
-    unset https_proxy
-    unset all_proxy
+    # 5. 清除代理变量
+    unset http_proxy https_proxy all_proxy
+    unset HTTP_PROXY HTTPS_PROXY ALL_PROXY
+    
+    # 清除 Git 代理
     git config --global --unset http.proxy
     git config --global --unset https.proxy
+    
+    # 注意：我们故意 **不** unset no_proxy
+    # 即使关闭了外网代理，本地直连保护也必须保留！
+    
     echo -e "\033[31m[x] Proxy is OFF\033[0m"
 }
 
