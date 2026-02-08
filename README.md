@@ -2,6 +2,13 @@
 
 我的个人配置文件，使用 [GNU Stow](https://www.gnu.org/software/stow/) 管理。
 
+## ✨ 特性
+
+- **一键安装**: 自动安装所有依赖（Oh My Zsh、Powerlevel10k、插件等）
+- **跨平台**: 支持 apt、pacman、dnf、brew 等包管理器
+- **安全备份**: 自动备份现有配置文件
+- **模块化**: 可选择性安装特定配置包
+
 ## 包含的配置
 
 | 包   | 文件                  | 说明                            |
@@ -11,31 +18,49 @@
 | git  | `.gitconfig`          | Git 配置                        |
 | tmux | `.tmux.conf`          | Tmux 终端复用器配置             |
 
+## 自动安装的依赖
+
+安装 `zsh` 包时，脚本会自动安装：
+
+- [Oh My Zsh](https://ohmyz.sh/) - Zsh 配置框架
+- [Powerlevel10k](https://github.com/romkatv/powerlevel10k) - 强大的 Zsh 主题
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - 命令自动补全
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - 语法高亮
+- [fzf](https://github.com/junegunn/fzf) - 模糊搜索工具
+
 ## 快速安装
 
 ```bash
 # 克隆仓库
-git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
+git clone git@github.com:Ciusdusk/Dotfiles.git ~/dotfiles
 
-# 运行安装脚本（会自动安装 stow）
+# 运行安装脚本（自动安装所有依赖和配置）
 cd ~/dotfiles
 ./install.sh
 ```
 
+> ⚠️ **字体提示**: 为了正确显示 Powerlevel10k 图标，请确保你的终端使用 [Nerd Font](https://github.com/romkatv/powerlevel10k#fonts) 字体（推荐 MesloLGS NF）
+
 ## 使用方法
 
 ```bash
-# 安装所有配置
-./install.sh install
+# 完整安装（包括所有依赖和配置）
+./install.sh
 
 # 只安装特定的包
 ./install.sh install vim zsh
+
+# 只安装依赖（不链接配置文件）
+./install.sh deps
 
 # 卸载配置
 ./install.sh uninstall vim
 
 # 查看可用的包
 ./install.sh list
+
+# 查看帮助
+./install.sh help
 ```
 
 ## 工作原理
