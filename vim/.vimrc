@@ -84,3 +84,42 @@ highlight Comment ctermfg=110
 
 " 行号颜色优化: 设为深灰色，不抢眼
 highlight LineNr ctermfg=DarkGrey
+
+" ====================================================================
+" 7. 插件管理 (Plugins via vim-plug)
+" ====================================================================
+" 自动安装 vim-plug (如果不存在)
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'vim-autoformat/vim-autoformat'
+call plug#end()
+
+" ====================================================================
+" 8. 代码格式化 (Code Formatting)
+" ====================================================================
+" 格式化快捷键: 空格 + f
+nnoremap <Leader>f :Autoformat<CR>
+
+" 保存时自动格式化 (可选，取消注释启用)
+autocmd BufWrite * :Autoformat
+
+" Shell: shfmt (4空格缩进, switch-case缩进)
+let g:formatdef_shfmt = '"shfmt -i 4 -ci"'
+let g:formatters_sh = ['shfmt']
+
+" Python: black (PEP 8 标准)
+let g:formatdef_black = '"black -q -"'
+let g:formatters_python = ['black']
+
+" C/C++: clang-format
+let g:formatters_c = ['clangformat']
+let g:formatters_cpp = ['clangformat']
+
+" Java: google-java-format
+let g:formatdef_google_java = '"google-java-format -"'
+let g:formatters_java = ['google_java']
