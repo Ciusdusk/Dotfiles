@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -129,7 +129,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# direnv settings 
+# direnv settings
 eval "$(direnv hook bash)"
 export DIRENV_LOG_FORMAT=""
 
@@ -152,7 +152,7 @@ function proxy_on() {
     export http_proxy="$PROXY_URL"
     export https_proxy="$PROXY_URL"
     export all_proxy="$PROXY_URL"
-    
+
     # 同步大写变量 (某些 Linux 工具只认大写)
     export HTTP_PROXY="$PROXY_URL"
     export HTTPS_PROXY="$PROXY_URL"
@@ -169,26 +169,26 @@ function proxy_off() {
     # 5. 清除代理变量
     unset http_proxy https_proxy all_proxy
     unset HTTP_PROXY HTTPS_PROXY ALL_PROXY
-    
+
     # 清除 Git 代理
     git config --global --unset http.proxy
     git config --global --unset https.proxy
-    
+
     # 注意：我们故意 **不** unset no_proxy
     # 即使关闭了外网代理，本地直连保护也必须保留！
-    
+
     echo -e "\033[31m[x] Proxy is OFF\033[0m"
 }
 
 # Connect to antigravity
-ag() {  
+ag() {
     local DISTRO=$WSL_DISTRO_NAME
     local AG_EXE="/mnt/g/Development_Tools/IDE/Antigravity/bin/antigravity"
     "$AG_EXE" --remote wsl+$DISTRO "$(pwd)"
 }
 
 # Connect to VSCode
-code() {  
+code() {
     local DISTRO=$WSL_DISTRO_NAME
     local CODE_EXE="/mnt/g/Development_Tools/IDE/Microsoft VS Code/bin/code"
     "$CODE_EXE" --remote wsl+$DISTRO "$(pwd)"
@@ -234,3 +234,8 @@ alias g='git'
 # Direnv Hook (自动加载环境变量)
 # ==========================================
 eval "$(direnv hook zsh)"
+
+#===========================================
+# alias
+#===========================================
+alias dc='cd'
