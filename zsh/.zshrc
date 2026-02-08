@@ -218,3 +218,8 @@ export VISUAL='vim'
 
 # Git 别名 (可选，方便用 vim 处理 git commit)
 alias g='git'
+
+# ==========================================
+# Direnv Hook (自动加载环境变量)
+# ==========================================
+eval "$(direnv hook zsh)"
