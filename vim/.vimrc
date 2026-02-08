@@ -123,3 +123,12 @@ let g:formatters_cpp = ['clangformat']
 " Java: google-java-format
 let g:formatdef_google_java = '"google-java-format -"'
 let g:formatters_java = ['google_java']
+
+" ====================================================================
+" 9. 自动文件头 (Auto File Headers)
+" ====================================================================
+" 新建 .sh 文件时自动添加 shebang
+autocmd BufNewFile *.sh call append(0, '#!/usr/bin/env bash') | normal! G
+
+" 新建 .py 文件时自动添加文件路径注释
+autocmd BufNewFile *.py call append(0, '# ' . expand('%:p')) | normal! G
